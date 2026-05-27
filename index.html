@@ -12,118 +12,107 @@
   <title>Workout Tracker</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,'Helvetica Neue',sans-serif;min-height:100vh;padding-bottom:48px;overscroll-behavior:none}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,'Helvetica Neue',sans-serif;min-height:100vh;padding-bottom:60px;overscroll-behavior:none}
     #app{max-width:640px;margin:0 auto}
 
-    /* HEADER */
     .header{background:linear-gradient(135deg,#0c1a0c,#0a0a0a);border-bottom:1px solid #161616;padding:env(safe-area-inset-top,16px) 16px 14px;position:sticky;top:0;z-index:20}
     .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
     .logo{display:flex;align-items:baseline;gap:6px}
-    .logo-green{font-size:18px;font-weight:900;color:#22c55e;letter-spacing:-1px}
-    .logo-white{font-size:18px;font-weight:900;letter-spacing:-1px}
+    .logo-g{font-size:18px;font-weight:900;color:#22c55e;letter-spacing:-1px}
+    .logo-w{font-size:18px;font-weight:900;letter-spacing:-1px}
     .header-sub{color:#374151;font-size:11px;margin:2px 0 12px}
     .tabs{display:flex;gap:6px;flex-wrap:wrap}
     .tab-btn{background:transparent;color:#6b7280;border:1px solid #2a2a2a;border-radius:7px;padding:6px 12px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;transition:all .2s}
     .tab-btn.active{background:#22c55e;color:#0a0a0a;border-color:#22c55e}
 
-    /* CONTENT */
     .content{padding:20px 14px}
 
-    /* CARDS */
+    /* TIMER */
+    .timer-bar{display:flex;align-items:center;justify-content:space-between;background:#0d1f0d;border:1px solid #166534;border-radius:12px;padding:12px 16px;margin-bottom:20px}
+    .timer-label{color:#4b5563;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+    .timer-display{font-size:28px;font-weight:900;color:#22c55e;font-variant-numeric:tabular-nums;letter-spacing:2px;font-family:monospace}
+    .timer-display.blue{color:#3b82f6}
+
     .card{background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:14px;margin-bottom:12px}
-    .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
+    .card-title{color:#f0f0f0;font-weight:700;font-size:13px;flex:1;min-width:0}
 
-    /* BUTTONS */
     .btn{border:none;border-radius:8px;padding:9px 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all .2s}
-    .btn-green{background:#22c55e;color:#0a0a0a}
-    .btn-blue{background:#3b82f6;color:#fff}
     .btn-outline{background:transparent;border:1px solid #2a2a2a;color:#9ca3af}
-    .btn-danger{background:transparent;border:1px solid #3f1f1f;color:#ef4444}
-    .btn-sm{padding:5px 11px;font-size:11px;border-radius:6px}
-    .btn-full{width:100%;padding:13px;font-size:15px;letter-spacing:1px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;font-weight:900;transition:all .3s}
+    .btn-danger-sm{background:transparent;border:1px solid #3f1f1f;color:#ef4444;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700}
+    .btn-full{width:100%;padding:13px;font-size:15px;letter-spacing:1px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;font-weight:900;transition:all .3s;margin-top:10px}
     .btn-full.green{background:#22c55e;color:#0a0a0a}
+    .btn-full.blue{background:#3b82f6;color:#fff}
     .btn-full.saved{background:#166534;color:#86efac;cursor:default}
+    .btn-add-ex{width:100%;padding:11px;font-size:13px;border-radius:10px;border:1px dashed #2a2a2a;cursor:pointer;font-family:inherit;font-weight:700;background:transparent;color:#6b7280;transition:all .2s;margin-bottom:12px}
+    .btn-add-ex:hover{border-color:#22c55e;color:#22c55e}
 
-    /* BADGE */
-    .badge{display:inline-block;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700}
+    .badge{display:inline-block;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;white-space:nowrap}
 
-    /* INPUTS */
     .inp{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#f0f0f0;padding:6px 8px;font-size:13px;font-family:inherit;outline:none;width:100%}
     .inp:focus{border-color:#22c55e}
     label.lbl{display:block;color:#9ca3af;font-size:10px;font-weight:700;margin-bottom:5px}
 
-    /* SET GRID */
     .set-grid{display:grid;grid-template-columns:28px 1fr 1fr;gap:6px;align-items:center;margin-bottom:5px}
-    .set-num{color:#22c55e;font-weight:900;font-size:12px}
+    .set-num{font-weight:900;font-size:12px;color:#22c55e}
     .set-num.blue{color:#3b82f6}
+    .col-labels{display:grid;grid-template-columns:28px 1fr 1fr;gap:6px;margin-bottom:4px}
+    .col-lbl{color:#374151;font-size:10px;font-weight:700}
 
-    /* DAY SELECTOR */
-    .day-cards{display:flex;gap:14px;flex-wrap:wrap}
+    .day-cards{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
     .day-card{flex:1;min-width:150px;background:#111;border:2px solid;border-radius:12px;padding:20px 16px;cursor:pointer;text-align:left;font-family:inherit;transition:background .2s}
     .day-letter{font-size:32px;font-weight:900;line-height:1}
     .day-title{font-size:13px;font-weight:700;margin-top:8px;color:#f0f0f0}
     .day-sub{font-size:11px;color:#6b7280;margin-top:4px}
 
-    /* HISTORY */
+    .remove-ex-btn{background:transparent;border:none;color:#2a2a2a;cursor:pointer;font-size:16px;padding:2px 4px;line-height:1;transition:color .2s;flex-shrink:0}
+    .remove-ex-btn:hover{color:#ef4444}
+
     .history-row{background:#111;border:1px solid #1a1a1a;border-radius:11px;overflow:hidden;margin-bottom:9px;transition:border .2s}
     .history-row-header{display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer}
-    .day-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0}
+    .day-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;border:2px solid}
     .history-detail{border-top:1px solid #181818;padding:11px 15px;display:none}
     .history-detail.open{display:block}
     .set-chip{display:inline-block;background:#1a1a1a;border:1px solid #242424;border-radius:6px;padding:3px 9px;font-size:12px;color:#d1d5db;margin:2px}
     .note-box{background:#0d190d;border-radius:7px;padding:8px 11px;color:#86efac;font-size:12px;font-style:italic;margin-top:8px}
+    .duration-box{display:inline-flex;align-items:center;gap:4px;color:#6b7280;font-size:11px;margin-top:4px}
 
-    /* CHART */
     .chart-wrap{background:#111;border:1px solid #1a1a1a;border-radius:11px;padding:16px 8px}
-    .chart-title-lbl{color:#4b5563;font-size:10px;font-weight:700;margin-bottom:12px;padding-left:8px}
     .stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:18px}
     .stat-card{background:#111;border:1px solid #1a1a1a;border-radius:9px;padding:11px 8px;text-align:center}
     .stat-val{font-size:17px;font-weight:900}
     .stat-lbl{color:#6b7280;font-size:10px;margin-top:3px}
 
-    /* MODAL */
-    .modal-overlay{display:none;position:fixed;inset:0;background:#000c;z-index:100;align-items:center;justify-content:center;padding:16px}
+    .modal-overlay{display:none;position:fixed;inset:0;background:#000c;z-index:100;align-items:flex-end;justify-content:center;padding:0}
     .modal-overlay.open{display:flex}
-    .modal-box{background:#111;border-radius:16px;padding:24px;width:100%;max-width:400px;border:1px solid #333;max-height:85vh;overflow-y:auto}
+    .modal-box{background:#161616;border-radius:20px 20px 0 0;padding:24px 20px 36px;width:100%;max-width:640px;border-top:1px solid #2a2a2a;max-height:85vh;overflow-y:auto}
     .modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
-    .modal-close{background:transparent;border:none;color:#6b7280;font-size:20px;cursor:pointer;line-height:1;padding:0}
+    .modal-close{background:transparent;border:none;color:#6b7280;font-size:22px;cursor:pointer;line-height:1;padding:0}
     .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 
-    /* EXERCISE LIST */
-    .ex-row{background:#111;border:1px solid #1a1a1a;border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:10px;margin-bottom:7px}
-    .ex-info{flex:1}
-    .ex-name{color:#f0f0f0;font-size:13px;font-weight:600}
-    .ex-sub{color:#6b7280;font-size:11px;margin-top:2px}
+    .suggestions{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+    .suggestion-chip{background:#1a1a1a;border:1px solid #2a2a2a;color:#9ca3af;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .2s}
+    .suggestion-chip:hover{border-color:#22c55e;color:#22c55e}
+    .suggestions-label{color:#4b5563;font-size:10px;font-weight:700;width:100%}
 
-    /* MISC */
-    .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .confirm-inline{display:flex;gap:6px;align-items:center}
+    .export-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
     .empty-state{text-align:center;padding:56px 0;color:#4b5563}
     .empty-icon{font-size:44px;margin-bottom:12px}
-    textarea{background:#111;border:1px solid #1a1a1a;border-radius:9px;color:#d1d5db;padding:10px;font-size:12px;font-family:inherit;resize:none;width:100%;outline:none}
+    textarea{background:#111;border:1px solid #1a1a1a;border-radius:9px;color:#d1d5db;padding:10px;font-size:12px;font-family:inherit;resize:none;width:100%;outline:none;margin-top:4px}
     textarea:focus{border-color:#22c55e}
     select{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;color:#f0f0f0;padding:9px 12px;font-size:13px;font-family:inherit;cursor:pointer;width:100%;outline:none}
     input[type=date]{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#f0f0f0;padding:5px 8px;font-size:12px;font-family:inherit;outline:none;color-scheme:dark}
-    .confirm-del{display:flex;gap:6px;align-items:center}
-    .info-banner{background:#0c1a0c;border-bottom:1px solid #166534;padding:8px 16px;text-align:center;color:#4ade80;font-size:11px}
-
-    /* SECTION DIV */
-    .section-day{margin-bottom:28px}
-    .section-day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-    .day-label-row{display:flex;align-items:center;gap:10px}
-    .day-pill{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;border:2px solid}
-    .export-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
   </style>
 </head>
 <body>
 <div id="app"></div>
-
-<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-box" id="modal-box"></div>
 </div>
 
 <script>
-// ── CONSTANTS ──────────────────────────────────────────────────────────────
+// ── DEFAULT SCHEMA ─────────────────────────────────────────────────────────
 const DEFAULT_SCHEMA = {
   A:{label:"Spinta + Gambe",color:"#22c55e",exercises:[
     {id:"a1",name:"Chest press machine",target:"4×8",sw:35},
@@ -143,205 +132,206 @@ const DEFAULT_SCHEMA = {
   ]}
 };
 
-// ── STATE ─────────────────────────────────────────────────────────────────
+// ── STATE ──────────────────────────────────────────────────────────────────
 let S = {
-  tab: 'train',
-  sessions: [],
-  schema: structuredClone(DEFAULT_SCHEMA),
-  day: null,
-  date: today(),
-  trainSets: {},
-  note: '',
-  saved: false,
-  histExpanded: null,
-  selectedEx: null,
-  confirmDel: null,
+  tab:'train', sessions:[], schema:null,
+  day:null, date:today(), trainSets:{}, note:'', saved:false,
+  histExpanded:null, confirmDelEx:null, selectedEx:null,
 };
 
-// ── STORAGE ───────────────────────────────────────────────────────────────
-function load() {
-  try { S.sessions = JSON.parse(localStorage.getItem('wt-sessions')||'[]'); } catch{}
-  try { S.schema = JSON.parse(localStorage.getItem('wt-schema')||'null') || structuredClone(DEFAULT_SCHEMA); } catch{}
+// ── TIMER (global, outside state to survive re-renders) ────────────────────
+let T = {interval:null, startTs:null, seconds:0, running:false};
+
+function startTimer(){
+  if(T.running) return;
+  T.startTs = Date.now() - T.seconds*1000;
+  T.running = true;
+  T.interval = setInterval(()=>{
+    T.seconds = Math.floor((Date.now()-T.startTs)/1000);
+    const el = document.getElementById('timer-display');
+    if(el) el.textContent = fmtTime(T.seconds);
+  }, 500);
 }
-function saveData() {
-  localStorage.setItem('wt-sessions', JSON.stringify(S.sessions));
-  localStorage.setItem('wt-schema', JSON.stringify(S.schema));
+function stopTimer(){ clearInterval(T.interval); T.running=false; return T.seconds; }
+function resetTimer(){ clearInterval(T.interval); T={interval:null,startTs:null,seconds:0,running:false}; }
+function fmtTime(s){ return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; }
+function fmtDuration(s){
+  if(!s||s<0) return '';
+  const m=Math.floor(s/60);
+  return m>0?`${m}min ${s%60}s`:`${s}s`;
 }
 
-// ── UTILS ─────────────────────────────────────────────────────────────────
+// ── STORAGE ────────────────────────────────────────────────────────────────
+function loadData(){
+  try{ S.sessions=JSON.parse(localStorage.getItem('wt-sessions')||'[]'); }catch{}
+  try{ S.schema=JSON.parse(localStorage.getItem('wt-schema')||'null')||structuredClone(DEFAULT_SCHEMA); }catch{ S.schema=structuredClone(DEFAULT_SCHEMA); }
+}
+function saveData(){
+  localStorage.setItem('wt-sessions',JSON.stringify(S.sessions));
+  localStorage.setItem('wt-schema',JSON.stringify(S.schema));
+}
+
+// ── UTILS ──────────────────────────────────────────────────────────────────
 function uid(){ return Math.random().toString(36).slice(2,9); }
 function today(){ return new Date().toISOString().slice(0,10); }
-function fmtDate(d){
-  return new Date(d+'T12:00:00').toLocaleDateString('it-IT',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
-}
+function fmtDate(d){ return new Date(d+'T12:00:00').toLocaleDateString('it-IT',{weekday:'short',day:'2-digit',month:'short',year:'numeric'}); }
 function parseSets(target){
-  const [s,r] = target.split('×').map(x=>parseInt(x.trim()));
-  return Array.from({length:s||3},()=>({reps:r||10,kg:''}));
+  const m=target.match(/(\d+)\s*[×x]\s*(\d+)/);
+  const s=m?parseInt(m[1]):3, r=m?parseInt(m[2]):10;
+  return Array.from({length:s},()=>({reps:r,kg:''}));
 }
+function badge(text,color){ return `<span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${text}</span>`; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// Pre-load sets from last session of same day, fallback to defaults
 function initTrainSets(day){
   const sets={};
+  const last=S.sessions.find(s=>s.day===day);
   S.schema[day].exercises.forEach(ex=>{
-    sets[ex.id] = parseSets(ex.target).map(s=>({...s,kg:ex.sw}));
+    if(last){
+      const lastEx=last.exercises.find(e=>e.name===ex.name);
+      if(lastEx&&lastEx.sets&&lastEx.sets.length>0){
+        sets[ex.id]=lastEx.sets.map(s=>({kg:s.kg,reps:s.reps}));
+        return;
+      }
+    }
+    sets[ex.id]=parseSets(ex.target).map(s=>({...s,kg:ex.sw}));
   });
   return sets;
 }
-function badge(text,color){
-  return `<span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${text}</span>`;
-}
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ── SVG CHART ─────────────────────────────────────────────────────────────
-function svgChart(data, color){
-  if(data.length < 2) return `<div class="empty-state"><div class="empty-icon">📈</div><p style="font-size:13px">Servono almeno 2 sessioni</p></div>`;
-  const W=320,H=160,p={t:16,r:16,b:32,l:38};
-  const iW=W-p.l-p.r, iH=H-p.t-p.b;
-  const ws=data.map(d=>d.w);
-  const maxW=Math.max(...ws), minW=Math.min(...ws);
-  const range=maxW-minW||5;
-  const x=i=>p.l+(i/Math.max(data.length-1,1))*iW;
-  const y=v=>p.t+iH-((v-minW+range*.05)/(range*1.1))*iH;
-  const pts=data.map((d,i)=>`${x(i)},${y(d.w)}`).join(' ');
-  const dots=data.map((d,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(d.w).toFixed(1)}" r="4" fill="${color}" stroke="#0a0a0a" stroke-width="1.5"/>`).join('');
-  const yVals=[minW,Math.round((minW+maxW)/2),maxW];
-  const yLbls=yVals.map(v=>`<text x="${p.l-4}" y="${(y(v)+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#6b7280">${v}</text>`).join('');
-  const xLbls=data.map((d,i)=>{
-    if(data.length>6&&i%2!==0) return '';
-    return `<text x="${x(i).toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="9" fill="#6b7280">${d.date}</text>`;
-  }).join('');
-  const gridYs=yVals.map(v=>`<line x1="${p.l}" y1="${y(v).toFixed(1)}" x2="${p.l+iW}" y2="${y(v).toFixed(1)}" stroke="#1e1e1e" stroke-width="1"/>`).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
-    ${gridYs}
-    <line x1="${p.l}" y1="${p.t}" x2="${p.l}" y2="${p.t+iH}" stroke="#222" stroke-width="1"/>
-    <line x1="${p.l}" y1="${p.t+iH}" x2="${p.l+iW}" y2="${p.t+iH}" stroke="#222" stroke-width="1"/>
-    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    ${dots}${yLbls}${xLbls}
-  </svg>`;
+// All unique exercise names ever used (history + schema)
+function allExNames(){
+  const names=new Set();
+  S.sessions.forEach(s=>s.exercises.forEach(e=>names.add(e.name)));
+  Object.values(S.schema).forEach(sc=>sc.exercises.forEach(e=>names.add(e.name)));
+  return [...names].sort();
 }
 
 // ── RENDER ─────────────────────────────────────────────────────────────────
 function render(){
-  const totalEx = Object.values(S.schema).reduce((n,s)=>n+s.exercises.length,0);
-  document.getElementById('app').innerHTML = `
+  const totalEx=Object.values(S.schema).reduce((n,s)=>n+s.exercises.length,0);
+  document.getElementById('app').innerHTML=`
     <div class="header">
       <div style="max-width:640px;margin:0 auto">
         <div class="header-top">
-          <div class="logo"><span class="logo-green">WORKOUT</span><span class="logo-white">TRACKER</span></div>
+          <div class="logo"><span class="logo-g">WORKOUT</span><span class="logo-w">TRACKER</span></div>
         </div>
-        <div class="header-sub">${S.sessions.length} sessioni · ${totalEx} esercizi</div>
+        <div class="header-sub">${S.sessions.length} sessioni · ${totalEx} esercizi in scheda</div>
         <div class="tabs">
-          ${['train','exercises','history','progress'].map((t,i)=>`
-            <button class="tab-btn${S.tab===t?' active':''}" onclick="setTab('${t}')">
-              ${['💪 Allenamento','⚙️ Esercizi','📋 Storico','📈 Progressi'][i]}
-            </button>`).join('')}
+          ${[['train','💪 Allenamento'],['history','📋 Storico'],['progress','📈 Progressi']].map(([t,l])=>
+            `<button class="tab-btn${S.tab===t?' active':''}" onclick="setTab('${t}')">${l}</button>`).join('')}
         </div>
       </div>
     </div>
-    <div class="info-banner">📱 Dati salvati automaticamente sul dispositivo</div>
     <div class="content">
-      ${S.tab==='train'?renderTrain():S.tab==='exercises'?renderExercises():S.tab==='history'?renderHistory():renderProgress()}
+      ${S.tab==='train'?renderTrain():S.tab==='history'?renderHistory():renderProgress()}
     </div>`;
+
+  // Restart timer tick if running (after re-render)
+  if(T.running){
+    clearInterval(T.interval);
+    T.interval=setInterval(()=>{
+      T.seconds=Math.floor((Date.now()-T.startTs)/1000);
+      const el=document.getElementById('timer-display');
+      if(el) el.textContent=fmtTime(T.seconds);
+    },500);
+  }
 }
 
-// ── TAB: ALLENAMENTO ──────────────────────────────────────────────────────
+// ── TAB: ALLENAMENTO ───────────────────────────────────────────────────────
 function renderTrain(){
   if(!S.day) return renderDaySelector();
   const sc=S.schema[S.day];
   const color=sc.color;
+  const isBlue=color==='#3b82f6';
+
   return `
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap">
-      <button class="btn btn-outline btn-sm" onclick="selectDay(null)">← Cambia</button>
-      ${badge('GIORNO '+S.day, color)}
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="btn btn-outline" style="padding:5px 11px;font-size:12px" onclick="backToSelector()">← Cambia</button>
+      ${badge('GIORNO '+S.day,color)}
       <div style="margin-left:auto;display:flex;align-items:center;gap:6px">
         <span style="color:#6b7280;font-size:11px">Data:</span>
         <input type="date" value="${S.date}" onchange="S.date=this.value">
       </div>
     </div>
-    ${sc.exercises.map(ex=>renderExCard(ex, color)).join('')}
-    <textarea rows="2" placeholder="Note sessione..." oninput="S.note=this.value">${esc(S.note)}</textarea>
-    <div style="margin-top:10px">
-      <button class="btn-full ${S.saved?'saved':'green'}" onclick="saveSession()" ${S.saved?'disabled':''}>
-        ${S.saved?'✓ Sessione Salvata!':'SALVA SESSIONE'}
-      </button>
-    </div>`;
+
+    <div class="timer-bar">
+      <div>
+        <div class="timer-label">⏱ Durata sessione</div>
+        <div class="timer-display${isBlue?' blue':''}" id="timer-display">${fmtTime(T.seconds)}</div>
+      </div>
+      ${T.running
+        ?`<button class="btn" style="background:#1f1f1f;color:#6b7280;font-size:12px;padding:7px 14px" onclick="pauseTimer()">⏸ Pausa</button>`
+        :`<button class="btn" style="background:${color}22;color:${color};border:1px solid ${color}44;font-size:12px;padding:7px 14px" onclick="resumeTimer()">▶ Riprendi</button>`
+      }
+    </div>
+
+    ${sc.exercises.map(ex=>renderExCard(ex,color,isBlue)).join('')}
+
+    <button class="btn-add-ex" onclick="openAddModal('${S.day}')">+ Aggiungi esercizio</button>
+
+    <div style="margin-top:4px">
+      <label class="lbl">NOTE SESSIONE</label>
+      <textarea rows="2" placeholder="Come ti sei sentito, cosa migliorare..." oninput="S.note=this.value">${esc(S.note)}</textarea>
+    </div>
+
+    <button class="btn-full ${S.saved?'saved':isBlue?'blue':'green'}" onclick="saveSession()" ${S.saved?'disabled':''}>
+      ${S.saved?'✓ Sessione Salvata!':'SALVA SESSIONE'}
+    </button>`;
 }
 
 function renderDaySelector(){
   return `
-    <p style="color:#9ca3af;font-size:13px;margin-bottom:20px">Seleziona il giorno di allenamento.</p>
+    <p style="color:#9ca3af;font-size:13px;margin-bottom:4px">Seleziona il giorno — il cronometro parte automaticamente.</p>
     <div class="day-cards">
-      ${['A','B'].map(d=>`
-        <button class="day-card" style="border-color:${S.schema[d].color}" onclick="selectDay('${d}')"
-          onmouseenter="this.style.background='${S.schema[d].color}18'"
-          onmouseleave="this.style.background='#111'">
-          <div class="day-letter" style="color:${S.schema[d].color}">${d}</div>
-          <div class="day-title">${S.schema[d].label}</div>
-          <div class="day-sub">${S.schema[d].exercises.length} esercizi</div>
-        </button>`).join('')}
+      ${['A','B'].map(d=>{
+        const last=S.sessions.find(s=>s.day===d);
+        const lastDate=last?fmtDate(last.date):'Nessuna sessione';
+        return `
+          <button class="day-card" style="border-color:${S.schema[d].color}" onclick="selectDay('${d}')"
+            onmouseenter="this.style.background='${S.schema[d].color}18'"
+            onmouseleave="this.style.background='#111'">
+            <div class="day-letter" style="color:${S.schema[d].color}">${d}</div>
+            <div class="day-title">${S.schema[d].label}</div>
+            <div class="day-sub">${S.schema[d].exercises.length} esercizi</div>
+            <div class="day-sub" style="margin-top:6px;color:#4b5563">Ultima: ${lastDate}</div>
+          </button>`}).join('')}
     </div>`;
 }
 
-function renderExCard(ex, color){
-  const sets = S.trainSets[ex.id] || parseSets(ex.target).map(s=>({...s,kg:ex.sw}));
-  const setsHtml = sets.map((s,i)=>`
-    <div class="set-grid">
-      <span class="set-num${color==='#3b82f6'?' blue':''}">${i+1}</span>
-      <input class="inp" type="number" value="${s.kg}" placeholder="kg"
-        oninput="updateSet('${ex.id}',${i},'kg',this.value)">
-      <input class="inp" type="number" value="${s.reps}" placeholder="reps"
-        oninput="updateSet('${ex.id}',${i},'reps',this.value)">
-    </div>`).join('');
+function renderExCard(ex, color, isBlue){
+  const sets=S.trainSets[ex.id]||parseSets(ex.target).map(s=>({...s,kg:ex.sw}));
+  const isConfirm=S.confirmDelEx===ex.id;
   return `
-    <div class="card">
+    <div class="card" id="card-${ex.id}">
       <div class="card-header">
-        <span style="color:#f0f0f0;font-weight:700;font-size:13px">${esc(ex.name)}</span>
-        ${badge(ex.target, color)}
+        <span class="card-title">${esc(ex.name)}</span>
+        ${badge(ex.target,color)}
+        ${isConfirm
+          ?`<div class="confirm-inline">
+              <span style="color:#ef4444;font-size:11px">Rimuovere?</span>
+              <button class="btn-danger-sm" onclick="removeEx('${S.day}','${ex.id}')">Sì</button>
+              <button class="btn-danger-sm" style="border-color:#2a2a2a;color:#6b7280" onclick="S.confirmDelEx=null;render()">No</button>
+            </div>`
+          :`<button class="remove-ex-btn" onclick="S.confirmDelEx='${ex.id}';render()" title="Rimuovi esercizio">✕</button>`
+        }
       </div>
-      <div class="set-grid" style="margin-bottom:4px">
-        ${['#','KG','REPS'].map(h=>`<span style="color:#374151;font-size:10px;font-weight:700">${h}</span>`).join('')}
+      <div class="col-labels">
+        ${['#','KG','REPS'].map(h=>`<span class="col-lbl">${h}</span>`).join('')}
       </div>
-      ${setsHtml}
+      ${sets.map((s,i)=>`
+        <div class="set-grid">
+          <span class="set-num${isBlue?' blue':''}">${i+1}</span>
+          <input class="inp" type="number" value="${s.kg}" placeholder="kg"
+            oninput="updateSet('${ex.id}',${i},'kg',this.value)" inputmode="decimal">
+          <input class="inp" type="number" value="${s.reps}" placeholder="reps"
+            oninput="updateSet('${ex.id}',${i},'reps',this.value)" inputmode="numeric">
+        </div>`).join('')}
     </div>`;
 }
 
-// ── TAB: ESERCIZI ─────────────────────────────────────────────────────────
-function renderExercises(){
-  return `
-    <p style="color:#9ca3af;font-size:13px;margin-bottom:22px">Aggiungi o rimuovi esercizi dalla scheda.</p>
-    ${['A','B'].map(day=>{
-      const sc=S.schema[day];
-      return `
-        <div class="section-day">
-          <div class="section-day-header">
-            <div class="day-label-row">
-              <div class="day-pill" style="background:${sc.color}22;color:${sc.color};border-color:${sc.color}">${day}</div>
-              <span style="color:#e5e7eb;font-weight:700;font-size:13px">${sc.label}</span>
-              <span style="color:#4b5563;font-size:11px">(${sc.exercises.length})</span>
-            </div>
-            <button class="btn btn-sm" style="background:${sc.color}18;color:${sc.color};border:1px solid ${sc.color}55;border-radius:7px"
-              onclick="openAddModal('${day}')">+ Aggiungi</button>
-          </div>
-          ${sc.exercises.map(ex=>`
-            <div class="ex-row" id="exrow-${ex.id}">
-              <div class="ex-info">
-                <div class="ex-name">${esc(ex.name)}</div>
-                <div class="ex-sub">${ex.target} · partenza ${ex.sw} kg</div>
-              </div>
-              ${S.confirmDel===ex.id
-                ?`<div class="confirm-del">
-                    <span style="color:#ef4444;font-size:11px">Sicuro?</span>
-                    <button class="btn btn-sm" style="background:#3f1f1f;color:#ef4444;border:none" onclick="removeEx('${day}','${ex.id}')">Sì</button>
-                    <button class="btn btn-sm btn-outline" onclick="S.confirmDel=null;render()">No</button>
-                  </div>`
-                :`<button onclick="S.confirmDel='${ex.id}';render()"
-                    style="background:transparent;border:none;color:#374151;cursor:pointer;font-size:15px;padding:2px 6px;transition:color .2s"
-                    onmouseenter="this.style.color='#ef4444'" onmouseleave="this.style.color='#374151'">✕</button>`
-              }
-            </div>`).join('')}
-        </div>`;
-    }).join('')}`;
-}
-
-// ── TAB: STORICO ──────────────────────────────────────────────────────────
+// ── TAB: STORICO ───────────────────────────────────────────────────────────
 function renderHistory(){
   if(!S.sessions.length) return `
     <div class="empty-state">
@@ -353,20 +343,24 @@ function renderHistory(){
   return `
     <div class="export-bar">
       <span style="color:#6b7280;font-size:12px">${S.sessions.length} sessioni</span>
-      <button class="btn btn-sm" style="background:#052e16;color:#22c55e;border:1px solid #166534;border-radius:7px"
+      <button class="btn" style="background:#052e16;color:#22c55e;border:1px solid #166534;border-radius:7px;padding:6px 14px;font-size:12px"
         onclick="exportCSV()">⬇ Esporta CSV</button>
     </div>
     ${S.sessions.map(s=>{
       const color=S.schema[s.day]?.color||'#22c55e';
       const isOpen=S.histExpanded===s.id;
       const maxW=Math.max(...s.exercises.flatMap(e=>e.sets.map(st=>st.kg||0)));
+      const dur=s.duration?fmtDuration(s.duration):'';
       return `
         <div class="history-row" style="border-color:${isOpen?color+'55':'#1a1a1a'}">
           <div class="history-row-header" onclick="toggleHist('${s.id}')">
-            <div class="day-icon" style="background:${color}22;border:2px solid ${color};color:${color}">${s.day}</div>
+            <div class="day-icon" style="background:${color}22;border-color:${color};color:${color}">${s.day}</div>
             <div style="flex:1">
               <div style="color:#f0f0f0;font-weight:700;font-size:13px">${fmtDate(s.date)}</div>
-              <div style="color:#6b7280;font-size:11px;margin-top:1px">${s.exercises.length} esercizi · max ${maxW} kg</div>
+              <div style="display:flex;gap:10px;margin-top:2px">
+                <span style="color:#6b7280;font-size:11px">${s.exercises.length} esercizi · max ${maxW} kg</span>
+                ${dur?`<span style="color:#4b5563;font-size:11px">⏱ ${dur}</span>`:''}
+              </div>
             </div>
             <span style="color:#374151;font-size:13px">${isOpen?'▲':'▼'}</span>
           </div>
@@ -377,36 +371,35 @@ function renderHistory(){
                 <div>${ex.sets.map(st=>`<span class="set-chip">${st.kg}kg × ${st.reps}</span>`).join('')}</div>
               </div>`).join('')}
             ${s.note?`<div class="note-box">💬 ${esc(s.note)}</div>`:''}
-            <button class="btn btn-danger btn-sm" style="margin-top:10px" onclick="deleteSession('${s.id}')">Elimina sessione</button>
+            <button class="btn-danger-sm" style="margin-top:12px" onclick="deleteSession('${s.id}')">Elimina sessione</button>
           </div>
-        </div>`;
-    }).join('')}`;
+        </div>`}).join('')}`;
 }
 
-// ── TAB: PROGRESSI ───────────────────────────────────────────────────────
+// ── TAB: PROGRESSI ─────────────────────────────────────────────────────────
 function renderProgress(){
-  const allEx = Object.values(S.schema).flatMap(s=>s.exercises);
-  if(!S.selectedEx) S.selectedEx = allEx[0]?.name||'';
-  const day = Object.keys(S.schema).find(d=>S.schema[d].exercises.some(e=>e.name===S.selectedEx));
-  const color = day?S.schema[day].color:'#22c55e';
+  const allEx=Object.values(S.schema).flatMap(s=>s.exercises);
+  if(!S.selectedEx) S.selectedEx=allEx[0]?.name||'';
+  const day=Object.keys(S.schema).find(d=>S.schema[d].exercises.some(e=>e.name===S.selectedEx));
+  const color=day?S.schema[day].color:'#22c55e';
 
-  const chartData = S.sessions
+  const chartData=S.sessions
     .filter(s=>s.exercises.some(e=>e.name===S.selectedEx))
     .slice().reverse()
     .map(s=>{
       const ex=s.exercises.find(e=>e.name===S.selectedEx);
-      return {date:s.date.slice(5), w:ex?Math.max(...ex.sets.map(st=>st.kg||0)):0};
+      return {date:s.date.slice(5),w:ex?Math.max(...ex.sets.map(st=>st.kg||0)):0};
     });
 
-  const delta = chartData.length>=2 ? chartData[chartData.length-1].w - chartData[0].w : null;
+  const delta=chartData.length>=2?chartData[chartData.length-1].w-chartData[0].w:null;
 
   return `
     <div style="margin-bottom:18px">
       <label class="lbl">SELEZIONA ESERCIZIO</label>
       <select onchange="S.selectedEx=this.value;render()">
-        ${Object.entries(S.schema).map(([d,s])=>`
+        ${Object.entries(S.schema).map(([d,sc])=>`
           <optgroup label="Giorno ${d}">
-            ${s.exercises.map(ex=>`<option value="${esc(ex.name)}"${S.selectedEx===ex.name?' selected':''}>${esc(ex.name)}</option>`).join('')}
+            ${sc.exercises.map(ex=>`<option value="${esc(ex.name)}"${S.selectedEx===ex.name?' selected':''}>${esc(ex.name)}</option>`).join('')}
           </optgroup>`).join('')}
       </select>
     </div>
@@ -423,33 +416,65 @@ function renderProgress(){
           </div>`).join('')}
       </div>
       <div class="chart-wrap">
-        <div class="chart-title-lbl">PESO MASSIMO PER SESSIONE (KG)</div>
+        <div style="color:#4b5563;font-size:10px;font-weight:700;margin-bottom:12px;padding-left:8px">PESO MASSIMO PER SESSIONE (KG)</div>
         ${svgChart(chartData,color)}
-      </div>` : `
+      </div>`:`
       <div class="empty-state">
         <div class="empty-icon">📈</div>
-        <p style="font-size:13px">Servono almeno 2 sessioni per vedere il grafico.</p>
+        <p style="font-size:13px">Servono almeno 2 sessioni per il grafico.</p>
       </div>`}`;
 }
 
-// ── ACTIONS ───────────────────────────────────────────────────────────────
-function setTab(t){ S.tab=t; S.confirmDel=null; render(); }
+// ── SVG CHART ──────────────────────────────────────────────────────────────
+function svgChart(data,color){
+  const W=320,H=160,p={t:16,r:16,b:32,l:40};
+  const iW=W-p.l-p.r, iH=H-p.t-p.b;
+  const ws=data.map(d=>d.w);
+  const maxW=Math.max(...ws), minW=Math.min(...ws), range=maxW-minW||5;
+  const x=i=>p.l+(i/Math.max(data.length-1,1))*iW;
+  const y=v=>p.t+iH-((v-minW+range*.05)/(range*1.1))*iH;
+  const pts=data.map((d,i)=>`${x(i).toFixed(1)},${y(d.w).toFixed(1)}`).join(' ');
+  const dots=data.map((d,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(d.w).toFixed(1)}" r="4" fill="${color}" stroke="#0a0a0a" stroke-width="1.5"/>`).join('');
+  const yVals=[minW,Math.round((minW+maxW)/2),maxW];
+  const yLbls=yVals.map(v=>`<text x="${p.l-5}" y="${(y(v)+4).toFixed(1)}" text-anchor="end" font-size="9" fill="#6b7280">${v}</text>`).join('');
+  const xLbls=data.map((d,i)=>(!( data.length>6&&i%2!==0))?`<text x="${x(i).toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="9" fill="#6b7280">${d.date}</text>`:'').join('');
+  const grid=yVals.map(v=>`<line x1="${p.l}" y1="${y(v).toFixed(1)}" x2="${p.l+iW}" y2="${y(v).toFixed(1)}" stroke="#1e1e1e" stroke-width="1"/>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+    ${grid}
+    <line x1="${p.l}" y1="${p.t}" x2="${p.l}" y2="${p.t+iH}" stroke="#222" stroke-width="1"/>
+    <line x1="${p.l}" y1="${p.t+iH}" x2="${p.l+iW}" y2="${p.t+iH}" stroke="#222" stroke-width="1"/>
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${dots}${yLbls}${xLbls}
+  </svg>`;
+}
+
+// ── ACTIONS ────────────────────────────────────────────────────────────────
+function setTab(t){ S.tab=t; S.confirmDelEx=null; render(); }
 
 function selectDay(d){
-  S.day=d; S.saved=false; S.note='';
-  if(d) S.trainSets=initTrainSets(d);
+  S.day=d; S.saved=false; S.note=''; S.confirmDelEx=null;
+  S.trainSets=initTrainSets(d);
+  resetTimer(); startTimer();
   render();
 }
 
+function backToSelector(){
+  S.day=null; resetTimer(); S.confirmDelEx=null; render();
+}
+
+function pauseTimer(){ stopTimer(); render(); }
+function resumeTimer(){ startTimer(); render(); }
+
 function updateSet(exId,idx,field,val){
   if(!S.trainSets[exId]) return;
-  S.trainSets[exId][idx][field] = field==='kg'?parseFloat(val)||0:parseInt(val)||0;
+  S.trainSets[exId][idx][field]=field==='kg'?parseFloat(val)||0:parseInt(val)||0;
 }
 
 function saveSession(){
   if(S.saved||!S.day) return;
+  const duration=stopTimer();
   const session={
-    id:uid(), date:S.date, day:S.day,
+    id:uid(), date:S.date, day:S.day, duration,
     exercises:S.schema[S.day].exercises.map(ex=>({
       name:ex.name,
       sets:(S.trainSets[ex.id]||[]).map(s=>({kg:Number(s.kg)||0,reps:Number(s.reps)||0}))
@@ -470,15 +495,18 @@ function deleteSession(id){
 
 function removeEx(day,id){
   S.schema[day].exercises=S.schema[day].exercises.filter(e=>e.id!==id);
-  S.confirmDel=null; saveData(); render();
+  delete S.trainSets[id];
+  S.confirmDelEx=null; saveData(); render();
 }
 
 function exportCSV(){
-  const rows=[['Data','Giorno','Esercizio','Set','Kg','Reps','Note']];
+  const rows=[['Data','Giorno','Esercizio','Set','Kg','Reps','Durata','Note']];
   S.sessions.forEach(s=>{
     s.exercises.forEach(ex=>{
       ex.sets.forEach((st,i)=>{
-        rows.push([s.date,'Giorno '+s.day,ex.name,i+1,st.kg,st.reps,i===0?(s.note||''):'' ]);
+        rows.push([s.date,'Giorno '+s.day,ex.name,i+1,st.kg,st.reps,
+          i===0?fmtDuration(s.duration||0):'',
+          i===0?(s.note||''):'']);
       });
     });
   });
@@ -490,62 +518,95 @@ function exportCSV(){
   a.click(); URL.revokeObjectURL(url);
 }
 
-// ── MODAL: ADD EXERCISE ───────────────────────────────────────────────────
+// ── MODAL: AGGIUNGI ESERCIZIO ──────────────────────────────────────────────
 function openAddModal(day){
   const color=S.schema[day].color;
+  const existingNames=new Set(S.schema[day].exercises.map(e=>e.name));
+  const suggestions=allExNames().filter(n=>!existingNames.has(n));
+
   document.getElementById('modal-box').innerHTML=`
     <div class="modal-header">
       <div>
-        <div style="font-weight:900;font-size:15px;color:#f0f0f0">Nuovo Esercizio</div>
+        <div style="font-weight:900;font-size:16px;color:#f0f0f0">Aggiungi Esercizio</div>
         <div style="color:#6b7280;font-size:12px;margin-top:2px">Giorno ${day}</div>
       </div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;flex-direction:column;gap:14px">
       <div>
         <label class="lbl">NOME ESERCIZIO *</label>
-        <input class="inp" type="text" id="ex-name" placeholder="es. Cable fly, Lateral raise...">
+        <input class="inp" type="text" id="ex-name" placeholder="Digita o scegli dai suggerimenti..."
+          oninput="filterSuggestions(this.value)">
+        ${suggestions.length?`
+          <div class="suggestions" id="suggestions-list">
+            <span class="suggestions-label">USATI IN PRECEDENZA</span>
+            ${suggestions.slice(0,12).map(n=>`
+              <button class="suggestion-chip" onclick="selectSuggestion('${esc(n)}')">${esc(n)}</button>`).join('')}
+          </div>`:''}
       </div>
       <div class="three-col">
-        <div><label class="lbl">SERIE</label><input class="inp" type="number" id="ex-sets" value="3"></div>
-        <div><label class="lbl">REPS</label><input class="inp" type="number" id="ex-reps" value="10"></div>
-        <div><label class="lbl">KG START</label><input class="inp" type="number" id="ex-sw" value="20"></div>
+        <div><label class="lbl">SERIE</label><input class="inp" type="number" id="ex-sets" value="3" inputmode="numeric"></div>
+        <div><label class="lbl">REPS</label><input class="inp" type="number" id="ex-reps" value="10" inputmode="numeric"></div>
+        <div><label class="lbl">KG START</label><input class="inp" type="number" id="ex-sw" value="20" inputmode="decimal"></div>
       </div>
-      <div style="display:flex;gap:8px;margin-top:4px">
-        <button class="btn btn-outline" onclick="closeModal()" style="flex:none">Annulla</button>
-        <button class="btn" style="flex:1;background:${color};color:#0a0a0a" onclick="addExercise('${day}')">+ Aggiungi</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-outline" onclick="closeModal()">Annulla</button>
+        <button class="btn" id="add-ex-btn" style="flex:1;background:${color};color:#0a0a0a" onclick="addExercise('${day}')">+ Aggiungi</button>
       </div>
     </div>`;
   document.getElementById('modal-overlay').classList.add('open');
   setTimeout(()=>document.getElementById('ex-name').focus(),100);
 }
 
+function filterSuggestions(val){
+  const list=document.getElementById('suggestions-list');
+  if(!list) return;
+  const chips=list.querySelectorAll('.suggestion-chip');
+  const q=val.toLowerCase();
+  chips.forEach(c=>{ c.style.display=(!q||c.textContent.toLowerCase().includes(q))?'':'none'; });
+}
+
+function selectSuggestion(name){
+  const inp=document.getElementById('ex-name');
+  if(inp){ inp.value=name; filterSuggestions(name); }
+}
+
 function addExercise(day){
-  const name=document.getElementById('ex-name').value.trim();
+  const name=(document.getElementById('ex-name').value||'').trim();
   if(!name) return;
-  const sets=document.getElementById('ex-sets').value||'3';
-  const reps=document.getElementById('ex-reps').value||'10';
+  const sets=parseInt(document.getElementById('ex-sets').value)||3;
+  const reps=parseInt(document.getElementById('ex-reps').value)||10;
   const sw=parseFloat(document.getElementById('ex-sw').value)||20;
-  S.schema[day].exercises.push({id:uid(),name,target:`${sets}×${reps}`,sw});
+  const target=`${sets}×${reps}`;
+  const id=uid();
+  const ex={id,name,target,sw};
+  S.schema[day].exercises.push(ex);
+  // Pre-load sets for this exercise in current session (use last known weights if exists)
+  const lastSession=S.sessions.find(s=>s.day===day);
+  const lastEx=lastSession?.exercises.find(e=>e.name===name);
+  if(lastEx&&lastEx.sets&&lastEx.sets.length>0){
+    S.trainSets[id]=lastEx.sets.map(s=>({kg:s.kg,reps:s.reps}));
+  } else {
+    S.trainSets[id]=parseSets(target).map(s=>({...s,kg:sw}));
+  }
   saveData(); closeModal(); render();
 }
 
 function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
 }
-
 document.getElementById('modal-overlay').addEventListener('click',function(e){
   if(e.target===this) closeModal();
 });
 
-// ── SERVICE WORKER ────────────────────────────────────────────────────────
+// ── SERVICE WORKER ─────────────────────────────────────────────────────────
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw.js').catch(()=>{});
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────
-load();
-S.selectedEx = Object.values(S.schema)[0]?.exercises[0]?.name||'';
+// ── INIT ───────────────────────────────────────────────────────────────────
+loadData();
+S.selectedEx=Object.values(S.schema)[0]?.exercises[0]?.name||'';
 render();
 </script>
 </body>
